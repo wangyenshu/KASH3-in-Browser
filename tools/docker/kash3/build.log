@@ -1,0 +1,80 @@
+WARNING: Error parsing config file (/home/stark/.docker/config.json): invalid character 'Â' looking for beginning of object key string
+WARNING: Error parsing config file (/home/stark/.docker/config.json): invalid character 'Â' looking for beginning of object key string
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 3.05kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/i386/debian:bookworm-slim
+#2 DONE 4.4s
+
+#3 [ 1/17] FROM docker.io/i386/debian:bookworm-slim@sha256:07554f95cf016fae6abe3bf4730899821dc4bbf27660eafad852bb8610a9037c
+#3 DONE 0.0s
+
+#4 [ 2/17] WORKDIR /root/build
+#4 CACHED
+
+#5 [internal] load .dockerignore
+#5 transferring context: 2B done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 158B done
+#6 DONE 0.0s
+
+#7 [12/17] RUN printf '%s\n' 9p 9pnet 9pnet_virtio virtio virtio_ring virtio_pci | tee -a /etc/initramfs-tools/modules
+#7 CACHED
+
+#8 [13/17] RUN echo '#!/bin/sh' > /etc/initramfs-tools/scripts/boot-9p &&     echo 'case $1 in prereqs) exit 0;; esac' >> /etc/initramfs-tools/scripts/boot-9p &&     echo '. /scripts/functions' >> /etc/initramfs-tools/scripts/boot-9p &&     echo 'mkdir -p ${rootmnt}' >> /etc/initramfs-tools/scripts/boot-9p &&     echo 'mount -n -t 9p -o trans=virtio,version=9p2000.L,cache=loose,rw host9p ${rootmnt}' >> /etc/initramfs-tools/scripts/boot-9p &&     chmod +x /etc/initramfs-tools/scripts/boot-9p
+#8 CACHED
+
+#9 [ 7/17] RUN passwd -d root &&     sed -i 's/nullok_secure/nullok/' /etc/pam.d/common-auth
+#9 CACHED
+
+#10 [11/17] RUN systemctl disable systemd-timesyncd.service &&     systemctl disable apt-daily.timer &&     systemctl disable apt-daily-upgrade.timer
+#10 CACHED
+
+#11 [ 8/17] COPY getty-noclear.conf getty-override.conf /etc/systemd/system/getty@tty1.service.d/
+#11 CACHED
+
+#12 [ 3/17] RUN rm -f /etc/apt/sources.list.d/* &&     echo "deb http://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free non-free-firmware\n    deb http://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware\n    deb http://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-backports main contrib non-free non-free-firmware\n    deb http://security.debian.org/debian-security bookworm-security main contrib non-free non-free-firmware" > /etc/apt/sources.list &&     apt-get update &&     apt-get install -y --no-install-recommends     linux-image-686     systemd-sysv     locales     libterm-readline-perl-perl     bzip2     && rm -rf /var/lib/apt/lists/*
+#12 CACHED
+
+#13 [10/17] RUN systemctl enable serial-getty@ttyS0.service
+#13 CACHED
+
+#14 [ 6/17] RUN cd /opt &&     tar xvjf /tmp/KASH3.tar.bz2 &&     rm /tmp/KASH3.tar.bz2
+#14 CACHED
+
+#15 [ 4/17] RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen &&     locale-gen &&     echo 'LANG="en_US.UTF-8"' > /etc/default/locale &&     chsh -s /bin/bash root
+#15 CACHED
+
+#16 [ 9/17] COPY getty-autologin-serial.conf /etc/systemd/system/serial-getty@ttyS0.service.d/
+#16 CACHED
+
+#17 [14/17] RUN echo 'BOOT=boot-9p' | tee -a /etc/initramfs-tools/initramfs.conf
+#17 CACHED
+
+#18 [ 5/17] COPY KASH3.tar.bz2 /tmp/KASH3.tar.bz2
+#18 CACHED
+
+#19 [15/17] RUN update-initramfs -u
+#19 CACHED
+
+#20 [16/17] RUN echo "cd /opt/KASH3 && ./kash3" >> /root/.bashrc
+#20 DONE 0.2s
+
+#21 [17/17] WORKDIR /root
+#21 DONE 0.1s
+
+#22 exporting to image
+#22 exporting layers 0.1s done
+#22 writing image sha256:26cb7e24eb4d8d95a1b14e7e63ffc7513cdf699536e25e5f1495b8fd86a2caba done
+#22 naming to docker.io/local/debian-kash3-v86 done
+#22 DONE 0.1s
+
+View build details: docker-desktop://dashboard/build/default/default/mzq7vzttxobxpr19922ojmey5
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - LegacyKeyValueFormat: "ENV key=value" should be used instead of legacy "ENV key value" format (line 4)
